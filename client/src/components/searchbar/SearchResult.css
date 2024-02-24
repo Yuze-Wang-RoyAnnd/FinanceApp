@@ -1,0 +1,15 @@
+.text{
+    margin-left: auto;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.search-result {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.search-result:hover {
+    background-color: #efefef;
+}

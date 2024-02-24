@@ -1,0 +1,131 @@
+.line-chart-container-main{
+    width: 100%;
+    height: 90%;
+}
+
+.selection-container {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: auto;
+    padding: 10px;
+}
+.button-collections {
+    position: relative;
+    width: min(450px, 30%);
+    max-width: 700px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 30px;
+    background-color: #eee;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: calc(100% / 5);
+    overflow: hidden;
+    white-space: nowrap;
+    color: black;
+    border-radius: 30px;
+    z-index:1;
+    font-size: 0.75rem;
+}
+
+span {
+    position: absolute;
+    height: 100%;
+    width: calc(100% / 5);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    background-image: linear-gradient(30deg, rgba(2,0,36,1) 0%, rgba(97,9,121,1) 8%, rgba(0,212,255,1) 100%);
+    transform:translate(-200%);
+}
+
+.radio-input[type="radio"]:checked+label {
+    color: white;
+}
+
+#radio1:checked ~ span {
+    transform:translateX(-200%);
+}
+
+#radio2:checked ~ span {
+    transform:translateX(-100%);
+}
+
+#radio3:checked ~ span {
+    transform:translateX(0);
+}
+
+#radio4:checked ~ span {
+    transform:translateX(100%);
+}
+
+#radio5:checked ~ span {
+    transform:translateX(200%);
+}
+
+
+
+label:hover{
+    cursor: pointer;
+}
+
+.radio-input[type="radio"] {
+    display: none;
+ }
+
+
+#xaxis line{
+    stroke: black;
+    stroke-width: 2px;
+}
+
+#xaxis path {
+    stroke: black;
+    stroke-width: 2px
+}
+
+#xaxis text {
+    fill: black;
+    font-size: 12px;
+}
+
+#drawpath {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: dash 1s linear forwards;
+}
+
+@keyframes dash {
+    to {
+      stroke-dashoffset: 0;
+    }
+}
+
+@media (max-width: 1000px) {
+    .line-chart-container-main{
+        width: 100%;
+        height: 90%;
+    }
+    .selection-container {
+        height: 10%;
+        padding: 5px;
+    }
+
+    .button-collections {
+        width: max(250px, 40%);
+    }
+}

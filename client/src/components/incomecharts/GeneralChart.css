@@ -1,0 +1,90 @@
+.svg-top{
+    width: 100%;
+    height: 49.5%;
+    margin-bottom: 0.5%;
+    background: white;
+    border-radius: 35px 35px 35px 35px;
+    box-shadow: 8px 8px 8px #ddd;
+}
+
+.svg-top :hover{
+    cursor: pointer;
+}
+
+.svg-bottom{
+    width: 100%;
+    height: 49.5%;
+    margin-top: 0.5%;
+    background: white;
+    border-radius: 35px 35px 35px 35px;
+    box-shadow: 8px 8px 8px #ddd;
+}
+
+.svg-bottom :hover{
+    cursor: pointer;
+}
+
+.svg-top-1{
+    width: 100%;
+    height: 49.5%;
+    margin-bottom: 0.5%;
+    background: white;
+    border-radius: 35px 35px 35px 35px;
+    box-shadow: 8px 8px 8px #ddd;
+}
+
+.svg-top :hover{
+    cursor: pointer;
+}
+
+.svg-bottom-1{
+    width: 100%;
+    height: 49.5%;
+    margin-top: 0.5%;
+    background: white;
+    border-radius: 35px 35px 35px 35px;
+    box-shadow: 8px 8px 8px #ddd;
+}
+
+.svg-bottom :hover{
+    cursor: pointer;
+}
+
+
+@media (max-width: 1000px) {
+    .svg-top{
+        width: 100%;
+        height: 300px;
+        margin-bottom: 5px;
+        background: white;
+        border-radius: 35px 35px 35px 35px;
+        box-shadow: 8px 8px 8px #ddd;
+    }
+
+    .svg-bottom{
+        width: 100%;
+        height: 300px;
+        margin-top: 5px;
+        background: white;
+        border-radius: 35px 35px 35px 35px;
+        box-shadow: 8px 8px 8px #ddd;
+    }
+
+    .svg-top-1{
+        width: 100%;
+        height: 300px;
+        margin-bottom: 5px;
+        background: white;
+        border-radius: 35px 35px 35px 35px;
+        box-shadow: 8px 8px 8px #ddd;
+    }
+
+    .svg-bottom-1{
+        width: 100%;
+        height: 300px;
+        margin-top: 5px;
+        background: white;
+        border-radius: 35px 35px 35px 35px;
+        box-shadow: 8px 8px 8px #ddd;
+    }
+}

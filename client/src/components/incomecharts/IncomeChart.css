@@ -1,0 +1,74 @@
+.svg3-container{
+    height: calc(100% - min(100px, 7%));
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.incomeName {
+    height: min(100px, 7%);
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    align-items: center;
+    border-width: 6px;
+    border-style: solid;
+    border-top: 0 ;
+    border-left: 0 ;
+    border-right: 0 ;
+}
+
+.incomeName:hover{
+    border-bottom: solid 3px;
+    transition:  border-top 0.25s linear;
+    transition:  border-bottom 0.25s linear;
+}
+
+
+.svg-left{
+    width: 49.5%;
+    margin-right: 0.5%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.svg-right{
+    width: 49.5%;
+    margin-left: 0.5%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 1000px) {
+    .incomeName {
+        height: 60px;
+        width: 100%;
+        font-size: 1.75rem;
+    }
+    .svg3-container{
+        height: 930px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .svg-left{
+        width: 100%;
+        margin-right: 0%;
+        margin-bottom: 5px;
+        height: 610px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .svg-right{
+        width: 100%;
+        margin-left: 0%;
+        margin-top: 5px;
+        height: 610px;
+        display: flex;
+        flex-direction: column;
+    }
+}

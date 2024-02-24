@@ -1,0 +1,110 @@
+.card {
+    border-radius: 10px;
+    box-shadow: 8px 8px 8px #ddd;
+    min-height: 100%;
+    max-height: 100%;
+    min-width: max(350px, calc(100vw/6));
+    max-width: max(350px, calc(100vw/6));
+    padding: 1em 1em;
+    margin: 0 1.25em;
+    animation: slide-right 0.4s ease;
+}
+.title {
+    height: 15%;
+    min-height: 15%;
+    max-height: 15%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.name {
+    display: block;
+    width: 80%;
+    text-overflow: hidden;
+    overflow: hidden;
+    white-space: nowrap;
+    color: white;
+}
+
+.close-icon {
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+.close-btn {
+    width: 25px;
+    height: 25px;
+    margin-left: auto;
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.info {
+    width: 100%;
+    height: 60%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-top: 1%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.info-list {
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: white;
+}
+
+.spinner-contianer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.spinner {
+    height: 100px;
+    width: 100px;
+    top: 50%;
+    margin: auto;
+}
+
+p {
+    color: #bbbaba;
+    font-size: large;
+}
+
+
+@-webkit-keyframes slide-right {
+    0% {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  }
+  
+  @keyframes slide-right {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  }
