@@ -5,6 +5,7 @@ import pandas_market_calendars as mcal
 from datetime import datetime
 import redis
 from flask_cors import CORS, cross_origin
+from util import connectDB
 
 
 app = Flask(__name__)
@@ -18,36 +19,24 @@ nyse = mcal.get_calendar('NYSE')
 
 @app.route('/api/remove_accessor', methods=['PUT'])
 @cross_origin(origins='*')
-def remove_accessor():
-    db_endpoint = redis.Redis(
-        host='redisHost',
-        port=14592,
-        password='password'
-    )
+@connectDB
+def remove_accessor(db_endpoint):
     ticker = request.json['ticker']
     if db_endpoint.exists(ticker):
         response = db_endpoint.json().numincrby(ticker, '$.accessor', -1)
         if response == 'nil':
-            db_endpoint.close()
             return make_response({'response' : 'remove accessor failed'}, 500)    
-    db_endpoint.close()
     return make_response({'response' : 'sucess'}, 200)
 
 @app.route('/api/update_accessor', methods=['PUT'])
 @cross_origin(origins='*')
-def update_accessor():
-    db_endpoint = redis.Redis(
-        host='redisHost',
-        port=14592,
-        password='password'
-    )
+@connectDB
+def update_accessor(db_endpoint):
     ticker = request.json['ticker']
     if db_endpoint.exists(ticker):
         response =  db_endpoint.json().numincrby(ticker, '$.accessor', 1)
         if response == 'nil':
-            db_endpoint.close()
             return make_response({'response' : 'update accessor failed'}, 500) 
-    db_endpoint.close()   
     return make_response({'response' : 'sucess'}, 200)
 
 
@@ -56,13 +45,9 @@ def update_accessor():
 ###############################Clean DB#################################
 @app.route('/api/selfClean', methods=['DELETE'])
 @cross_origin(origins='*')
-def clean():
+@connectDB
+def clean(db_endpoint):
     tickers = request.json['ticker']
-    db_endpoint = redis.Redis(
-        host='redisHost',
-        port=14592,
-        password='password'
-    )
     with db_endpoint.pipeline(transaction=True) as pipeline:
         while True:
             try:
@@ -89,7 +74,6 @@ def clean():
             except redis.WatchError:
                 continue
         pipeline.reset()
-    db_endpoint.close()
     return make_response('', 204)
 
 
@@ -99,14 +83,11 @@ def clean():
 ################################POST TO DB###############################
 @app.route('/api/prepare', methods=['POST'])
 @cross_origin(origins='*')
-def prepare():
+@connectDB
+def prepare(db_endpoint):
     #populate this ticker with info for process
     ticker = request.json['ticker']
-    db_endpoint = redis.Redis(
-        host='redisHost',
-        port=14592,
-        password='password'
-    )
+    print('Preparing!')
     with db_endpoint.pipeline(transaction=True) as pipeline:
         while True:
             try:
@@ -130,13 +111,10 @@ def prepare():
                             #whipe this table
                             db_endpoint.json().delete(ticker)
                             pipeline.reset()
-                            db_endpoint.close()
                             return make_response({'response' : 'DB failed'}, 500)
                         else:
-                            db_endpoint.close()
                             return make_response({'response' : 'success'}, 201)
                     else:
-                        db_endpoint.close()
                         return make_response({'response' : 'success'}, 201)
                 else:
                     pipeline.multi()
@@ -147,9 +125,7 @@ def prepare():
                     db_response = pipeline.execute()
                     print(db_response)
                     if db_response == 'nil':
-                        db_endpoint.close()
                         return make_response({'response' : 'creation failed'}, 500)
-                    db_endpoint.close()
                     return make_response({'response' : 'success'}, 201)
             except redis.WatchError:
                 continue
@@ -168,40 +144,28 @@ def get_company_list():
 
 @app.route('/api/get_info', methods=['GET'])
 @cross_origin(origins='*')
-def get_info():
+@connectDB
+def get_info(db_endpoint):
     ticker = request.args['ticker']
-    db_endpoint = redis.Redis(
-        host='redisHost',
-        port=14592,
-        password='password'
-    )
     fetch_info = db_endpoint.json().get(ticker, '$.generalInfo')
     if fetch_info == None:
-        db_endpoint.close()
         return make_response({'response': 'fetch request failed'}, 500)
-    db_endpoint.close()
     return make_response(fetch_info[0], 200)
 
 @app.route('/api/get_balance',  methods=['GET'])
 @cross_origin(origins='*')
-def get_balance():
+@connectDB
+def get_balance(db_endpoint):
     tickers = request.args.getlist('ticker')
     dataBody = []
     years = set()
-    db_endpoint = redis.Redis(
-        host='redisHost',
-        port=14592,
-        password='password'
-    )
     for ticker in tickers:
         data = db_endpoint.json().get(ticker, '$.balance_position')[0]
         if data == None:
-            db_endpoint.close()
             return make_response({'response' : f'fetch request failed, unable to fetch {ticker} balance from DB'}, 500)
         #process fiscal year
         dataBody.append({ticker: data})
         years = years.union(set([d['fiscalDateEnding']for d in data]))
-    db_endpoint.close()
     return make_response({
         'date' : sorted(list(years), reverse=False),
         'balance_data' : dataBody
@@ -209,23 +173,17 @@ def get_balance():
 
 @app.route('/api/get_cash', methods=['GET'])
 @cross_origin(origins='*')
-def get_cash():
+@connectDB
+def get_cash(db_endpoint):
     tickers = request.args.getlist('ticker')
     dataBody = []
     years = set()
-    db_endpoint = redis.Redis(
-        host='redisHost',
-        port=14592,
-        password='password'
-    )
     for ticker in tickers:
         data = db_endpoint.json().get(ticker, '$.cash_flow')[0]
         if data == None:
-            db_endpoint.close()
             return make_response({'response' : f'fetch request failed, unable to fetch {ticker} cash flow from DB'}, 500)
         dataBody.append({ticker: data})
         years = years.union(set([d['fiscalDateEnding']for d in data]))
-    db_endpoint.close()
     return make_response({
         'date' : sorted(list(years), reverse=False),
         'cash_data' : dataBody
@@ -233,23 +191,17 @@ def get_cash():
 
 @app.route('/api/get_income', methods=['GET'])
 @cross_origin(origins='*')
-def get_income():
+@connectDB
+def get_income(db_endpoint):
     tickers = request.args.getlist('ticker')
     dataBody = []
     years = set()
-    db_endpoint = redis.Redis(
-        host='redisHost',
-        port=14592,
-        password='password'
-    )
     for ticker in tickers:
         data = db_endpoint.json().get(ticker, '$.income_statment')[0]
         if data == None:
-            db_endpoint.close()
             return make_response({'response' : f'fetch request failed, unable to fetch {ticker} income from DB'}, 500)
         dataBody.append({ticker: data})
         years = years.union(set([d['fiscalDateEnding']for d in data]))
-    db_endpoint.close()
     return make_response({
         'date' : sorted(list(years), reverse=False),
         'income_data' : dataBody
@@ -258,22 +210,17 @@ def get_income():
 
 @app.route('/api/get_price',  methods=['GET'])
 @cross_origin(origins='*')
-def get_price():
+@connectDB
+def get_price(db_endpoint):
     tickers = request.args.getlist('ticker')
     time = request.args['time']
     #market calandar date 
     min_ = 0
     max_ = 0
     dataBody = []
-    db_endpoint = redis.Redis(
-        host='redisHost',
-        port=14592,
-        password='password'
-    )
     for ticker in tickers:
         db_response = db_endpoint.json().get(ticker, '$.priceInfo')[0]
         if db_response == None:
-            db_endpoint.close()
             return make_response({'response' : f'fetch request failed, unable to fetch {ticker} price information from DB'}, 500)
         data = get_percentage_info_from_date(db_endpoint.json().get(ticker, '$.priceInfo')[0], int(time))
         tmp_min_, tmp_max_ = min([d['adj-percentage'] for d in data]), max([d['adj-percentage'] for d in data])
@@ -282,7 +229,6 @@ def get_price():
         dataBody.append({ticker : {'data' : data}})
 
     calendar = get_market_calendar(nyse, int(time))
-    db_endpoint.close()
     return make_response({
         'batch-MinMax' : {'min' : min_, 'max' : max_},
         'mkt-calendar': calendar,
