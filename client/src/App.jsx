@@ -208,53 +208,62 @@ function App() {
         UsingTicker ? (
           <>
           <ErrorPage failure={failure}/>
-          <div className="line-chart-container">
-          <LineChart preprationinfo={PrepartionInfo} h={height} w={width} update_selection={update_selection} update_color={update_color} setFailure={setFailure}/>
-          </div>
-          <div className="info-card-container" ref={containerRef}>
-            {
-              Information.map(item => {return <InfoCard info={item} key={item.index} delete_info={delete_info} data_info={PrepartionInfo} setFailure={setFailure}/>})
-            }
-          </div>
-          <div className='scroll-btns'>
-            <button onClick={() => {handlescroll(-(width+100))}} className="l-btn"><BsChevronLeft className='lr-icon'/></button>
-            <p className="size-info">{InformationCount.current} of 7</p>
-            <button onClick={() => {handlescroll((width+100))}} className="r-btn"><BsChevronRight className='lr-icon'/></button>
-          </div>
 
-          <div className="balance-container">
-            <BalanceChart preprationinfo={PrepartionInfo} h={height} w={width} update_color={update_color} UsingTicker={UsingTicker} get_mix_gradient={get_mix_gradient} setFailure={setFailure}/>
-          </div>
+          <div className="whole">
+            <div className="l-c">
+            <div className="info-card-container" ref={containerRef}>
+                {
+                  Information.map(item => {return <InfoCard info={item} key={item.index} delete_info={delete_info} data_info={PrepartionInfo} setFailure={setFailure}/>})
+                }
+              </div>
 
-          <div className="cash-container">
-            <CashCharts preprationinfo={PrepartionInfo} h={height} w={width} update_color={update_color} get_mix_gradient={get_mix_gradient} setFailure={setFailure}/>
-          </div>
+            </div>
+            <div className="r-c">
+              <div className="line-chart-container">
+              <LineChart preprationinfo={PrepartionInfo} h={height} w={width} update_selection={update_selection} update_color={update_color} setFailure={setFailure}/>
+              </div>
 
-          <div className="income-container">
-            <IncomeChart preprationinfo={PrepartionInfo} h={height} w={width} update_color={update_color} get_mix_gradient={get_mix_gradient} setFailure={setFailure}/>
-          </div>
 
-          <div className="footer">
-            <div className="footer-left">
-              <div className="footer-left-75">
-                <p style={{float: 'right', textAlign: 'right', fontSize: '0.75rem'}}>
-                The information provided on this website is for general informational purposes only and does not constitute financial advice.
-                There is no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, 
-                suitability, or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose. 
-                Any reliance you place on such information is therefore strictly at your own risk.
-                </p>
+
+              <div className="balance-container">
+                <BalanceChart preprationinfo={PrepartionInfo} h={height} w={width} update_color={update_color} UsingTicker={UsingTicker} get_mix_gradient={get_mix_gradient} setFailure={setFailure}/>
+              </div>
+
+              <div className="cash-container">
+                <CashCharts preprationinfo={PrepartionInfo} h={height} w={width} update_color={update_color} get_mix_gradient={get_mix_gradient} setFailure={setFailure}/>
+              </div>
+
+              <div className="income-container">
+                <IncomeChart preprationinfo={PrepartionInfo} h={height} w={width} update_color={update_color} get_mix_gradient={get_mix_gradient} setFailure={setFailure}/>
+              </div>
+
+              <div className="footer">
+                <div className="footer-left">
+                  <div className="footer-left-75">
+                    <p style={{float: 'right', textAlign: 'right', fontSize: '0.75rem'}}>
+                    The information provided on this website is for general informational purposes only and does not constitute financial advice.
+                    There is no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, 
+                    suitability, or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose. 
+                    Any reliance you place on such information is therefore strictly at your own risk.
+                    </p>
+                  </div>
+                </div>
+                <div className="footer-right">
+                  <div className="footer-right-75">
+                    <img src={mySvg} alt="logo" style={{width: '50px', height:' 50px'}}/>
+                    <a href="https://www.linkedin.com/in/yuzewang/" style={{marginLeft: '20px'}}>LinkedIn</a>
+                    <a href="https://github.com/Yuze-Wang-RoyAnnd" style={{marginLeft: '20px'}}>Github</a>
+                    <a href="https://yuze-wang-royannd.github.io/" style={{marginLeft: '20px'}}>Website</a>
+                    
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="footer-right">
-              <div className="footer-right-75">
-                <img src={mySvg} alt="logo" style={{width: '50px', height:' 50px'}}/>
-                <a href="https://www.linkedin.com/in/yuzewang/" style={{marginLeft: '20px'}}>LinkedIn</a>
-                <a href="https://github.com/Yuze-Wang-RoyAnnd" style={{marginLeft: '20px'}}>Github</a>
-                <a href="https://yuze-wang-royannd.github.io/" style={{marginLeft: '20px'}}>Website</a>
-                
-              </div>
-            </div>
           </div>
+
+
+
+
           </>
         ) : (
           <div/>

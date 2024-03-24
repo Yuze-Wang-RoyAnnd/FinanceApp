@@ -16,9 +16,9 @@ def yearsago(years):
 def connectDB(f):
     def wrapper():
         db_endpoint = redis.Redis(
-            host='Host',
-            port=14592,
-            password='pass'
+            host='redis-17609.c53.west-us.azure.cloud.redislabs.com',
+            port=17609,
+            password='3sgXwuQT2RRrL0KtNGk8dEmmhsEtjGk1'
         )
         msg = f(db_endpoint)
         db_endpoint.close()

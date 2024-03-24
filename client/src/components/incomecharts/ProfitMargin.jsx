@@ -87,7 +87,6 @@ export const ProfitMargin = ({incomeInfo, h, w, update_color}) => {
         .y(function (d) {return yScale(d['gpm'])});
   
       //gross profit margin
-      //net profit margin
       svg.selectAll('.gpm')
       .data(margins)
       .join('path')
@@ -125,10 +124,11 @@ export const ProfitMargin = ({incomeInfo, h, w, update_color}) => {
   
       const drawgpm = d3.line()
         .x(function (d) {return xScale(d['fiscalDateEnding'])})
-        .y(function (d) {return yScale(d['npm'])});
+        .y(function (d) {console.log(d['npm']);
+                          return yScale(d['npm'])});
 
 
-      //gross profit margin
+
       //net profit margin
       svg.selectAll('.gpm')
       .data(margins)

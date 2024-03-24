@@ -50,7 +50,6 @@ export const EBITAProfit = ({incomeInfo, h, w, update_color, normalized}) => {
             const initItem = values.find(item => item['totalRevenue'] != 0);
             const initebita = values.find(item => item['EBIT'] != 0);
             return {key: key, v : values.map(item => {
-                console.log(item['EBIT']);
                 var gross_profit = 0;
                 var ebita = 0;
                 if (initItem != undefined){
