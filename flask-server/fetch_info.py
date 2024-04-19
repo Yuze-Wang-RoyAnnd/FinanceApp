@@ -6,8 +6,6 @@ from util import yearsago
 import requests
 import json
 
-
-
 class Ticker:
     def __init__(self, name) -> None:
         '''

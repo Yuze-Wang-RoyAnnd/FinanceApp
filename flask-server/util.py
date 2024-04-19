@@ -1,5 +1,11 @@
 from datetime import datetime
 import redis
+import configparser
+
+
+config = configparser.RawConfigParser()
+config.read('config.cfg')
+db_detail = dict(config.items('db Config'))
 
 @staticmethod
 def yearsago(years):
@@ -16,9 +22,9 @@ def yearsago(years):
 def connectDB(f):
     def wrapper():
         db_endpoint = redis.Redis(
-            host='redis-17609.c53.west-us.azure.cloud.redislabs.com',
-            port=17609,
-            password='3sgXwuQT2RRrL0KtNGk8dEmmhsEtjGk1'
+            host= db_detail['db_host'],
+            port= db_detail['db_port'],
+            password= db_detail['db_pass']
         )
         msg = f(db_endpoint)
         db_endpoint.close()

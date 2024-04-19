@@ -2,7 +2,7 @@ FROM python:3.11.2
 
 WORKDIR /usr/src/app
 
-COPY './requirements.txt' .
+COPY './extras/requirements.txt' .
 
 RUN pip install -r requirements.txt
 

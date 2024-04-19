@@ -1,1 +1,1 @@
-export const myconfig = {linktoBackend : 'http://127.0.0.1:80'};
+export const myconfig = {linktoBackend : 'http://0.0.0.0:80'};
